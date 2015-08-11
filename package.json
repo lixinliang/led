@@ -1,0 +1,16 @@
+{
+  "name": "led.js",
+  "version": "1.0.0",
+  "description": "Create a canvas like a led pannel",
+  "homepage": "https://github.com/lixinliang/led",
+  "keywords": [
+    "canvas",
+    "led"
+  ],
+  "author": "lixinliang",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lixinliang/led.git"
+  },
+  "license": "MIT"
+}
