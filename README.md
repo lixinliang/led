@@ -84,6 +84,6 @@ Released under [MIT] LICENSE
 
 ---
 [shape-shifter]: https://github.com/kennethcachia/shape-shifter
-[Demo]: https://lixinliang.github.io/led/1.html
-[How to use]: https://lixinliang.github.io/led/2.html
+[Demo]: http://lixinliang.github.io/tests/index.html
+[How to use]: http://lixinliang.github.io/led/examples/index.html
 [MIT]: http://rem.mit-license.org/
