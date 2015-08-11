@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> DEMO </title>
+	<link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+	<div class="g-inner">
+		<div class="ui-stage"><canvas data-role="led-content"></canvas></div>
+		<!-- slide [/ext-thumbX/ext-thumbY] -->
+		<div class="ui-console">
+			<div class="ui-slide ext-dotted" data-role="slide-console">
+			    <ul class="ui-slide__content" data-switchable-role="content">
+			        <li class="ui-slide__panel">
+						<div class="ui-row">
+							<p class="u-w360">var led = new LED({<br><span>width : 980,</span><br><span>height : 490</span><br>}).on('init', function(){<br><span>log('init successful');</span><br>}).on('action', function ( command ) {<br><span>log(command.current+'&lt;br&gt;');</span><br>});<br>led.init();</p>
+							<p class="u-w140">led.destroy();</p>
+						</div>
+						<div class="ui-row">
+							<span class="ui-btn btn-init">点击创建对象</span>
+							<span class="ui-btn btn-destroy is-disable">点击销毁对象</span>
+						</div>
+			        </li>
+			        <li class="ui-slide__panel">
+						<div class="ui-row">
+							<p class="u-w100 u-h159">led.stop();</p>
+							<p class="u-w250 u-h159">Syntax: (text)<br>Case: hi<br>Syntax: #count<br>Case: #count from 1 to 3<br>Syntax: #countdown<br>Case: #countdown 3<br>Syntax: #rectangle<br>Case: #rectangle 16x8<br>Syntax: #circle<br>Case: #circle 12<br>Syntax: #time<br>Case: #time<br>Syntax: #icon<br>Case: #icon heart<br>Syntax: (combo)|(combo)<br>Case: hi|#icon lego|</p>
+							<p class="u-w100 u-h159">led.start();</p>
+						</div>
+						<div class="ui-row">
+							<input class="ui-input btn-input" type="text" placeholder="输入命令" maxlength="50" autocomplete="off">
+						</div>
+						<div class="ui-row">
+							<span class="ui-btn btn-stop">暂停动画</span>
+							<span class="ui-btn btn-start is-disable">开始动画</span>
+						</div></li>
+			        <li class="ui-slide__panel">
+						<div class="ui-row">
+							<p class="u-w150">led.shuffle();</p>
+							<p class="u-w150">led.reset();</p>
+							<p class="u-w150">led.clear();</p>
+						</div>
+						<div class="ui-row">
+							<span class="ui-btn btn-mess">打乱一下</span>
+							<span class="ui-btn btn-reset">撤销命令</span>
+							<span class="ui-btn btn-clear">清除画布</span>
+						</div></li>
+			    </ul>
+			    <ul class="ui-slide__nav" data-switchable-role="nav">
+			        <li class="ui-slide__trigger is-active">1</li>
+			        <li class="ui-slide__trigger">2</li>
+			        <li class="ui-slide__trigger">3</li>
+			    </ul>
+			</div>
+			<div class="ui-log"><div><p></p></div></div>
+		</div>
+		<!-- slide end -->
+	</div>
+	<script src="js/LED.min.js"></script>
+	<script src="http://assets.dwstatic.com/amkit/entry.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
