@@ -801,7 +801,7 @@
 					var ret;
 					window.location.search.substring(1).split('&').forEach(function ( kw ) {
 						if (kw.split('=').shift() === this.config.keyword) {
-							this.simulate(decodeURI(kw.split('=').pop()));
+							this.simulate(decodeURIComponent(kw.split('=').pop()));
 							ret = true;
 							return
 						}
