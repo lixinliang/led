@@ -43,7 +43,7 @@ This canvas plugin is base on [shape-shifter]. Appreciate for its help.
 | rectangleHeight| 矩形默认高度         | 15                             | Number         |
 | circleRadius   | 圆形默认半径         | 18                             | Number         |
 | formatTime     | 日期对象转字符串函数  | anonymous function(){ ... }     | Function      |
-| imgUrl         | 图标路径            | '/img/icon/'                    | String         |
+| imgUrl         | 图标路径            | 'img/icon/'                    | String         |
 | imgType        | 图标格式            | '.png'                          | String         |
 | speed          | 普通命令间隔时间      | 2000                            | Number         |
 | countSpeed     | 数数命令间隔时间      | 1000                            | Number         |

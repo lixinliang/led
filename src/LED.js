@@ -720,7 +720,7 @@
 							m = m < 10 ? '0' + m : m;
 							return h + ':' + m
 						},
-		imgUrl          : '/img/icon/',
+		imgUrl          : 'img/icon/',
 		imgType         : '.png',
 		speed           : 2000,
 		countSpeed      : 1000,
