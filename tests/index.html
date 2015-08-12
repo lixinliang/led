@@ -13,8 +13,9 @@
 	<script src="LED.min.js"></script>
 	<script>
 		var led = (new LED({
-			command : '@',
 			split : ';',
+			command : '@',
+			partition : ':',
 			action : 'welcome;'
 		})).on('shuffle', function(){
 			this.shuffle();
