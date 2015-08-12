@@ -59,7 +59,7 @@ This canvas plugin is base on [shape-shifter]. Appreciate for its help.
 |----------|-------------|-----------|
 | init     | 创建对象     | null |
 | render   | 重绘画图     | width(\*Number), height(\*Number) |
-| simulate | 模拟        | action(\*String|Array) |
+| simulate | 模拟        | action(\*String|Number|Array) |
 | reset    | 撤销命令     | null |
 | clear    | 清除画布     | null |
 | stop     | 暂停动画     | null |
@@ -74,8 +74,9 @@ This canvas plugin is base on [shape-shifter]. Appreciate for its help.
 ### <a name="callback"></a>回调函数(Callback) [[⬆]](#top)
 | 回调函数(callback) |              说明(desc)              			| 参数(args) |
 |-------------------|-----------------------------------------------|-----------|
-| init   	     	| 创建对象成功时触发。                                 | null      |
-| action    		| 执行命令时触发。                                    	| command(Object) |
+| init   	     	| 创建对象成功时触发。                             | null      |
+| action    		| 执行命令时触发。                            	| command(Object) |
+| shuffle   	    | 打乱成功时触发。                             | null      |
 
 ### <a name="known-issues"></a>已知问题(Issues) [[⬆]](#top)
 

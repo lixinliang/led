@@ -1,7 +1,7 @@
 /*!
  *  Project: LED
  *  Description: canvas粒子文字插件
- *  Version : 1.0.0.20150810
+ *  Version : 1.0.1.20150812
  *  Author: Lixinliang
  *  License:
  *  Include:
@@ -80,24 +80,28 @@
 			}
 		},
 		adjustCanvas : function(){
-			this.canvas.width = this.canvas.style.width = this.self.config.width;
-			this.canvas.height = this.canvas.style.height = this.self.config.height;
+			var canvas = this.canvas;
+			canvas.width = this.self.config.width;
+			canvas.height = this.self.config.height;
+			canvas.style.width = canvas.width+'px';
+			canvas.style.height = canvas.height+'px';
 		},
 		clearFrame : function () {
 			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		},
 		getArea : function () {
 			return {
-				w: this.canvas.width,
-				h: this.canvas.height
+				w : this.canvas.width,
+				h : this.canvas.height
 			}
 		},
 		drawCircle : function ( p, c ) {
-			this.context.fillStyle = c.render();
-			this.context.beginPath();
-			this.context.arc(p.x, p.y, p.z, 0, 2 * Math.PI, true);
-			this.context.closePath();
-			this.context.fill();
+			var context = this.context;
+			context.fillStyle = c.render();
+			context.beginPath();
+			context.arc(p.x, p.y, p.z, 0, 2 * Math.PI, true);
+			context.closePath();
+			context.fill();
 		}
 	};
 	S.Command = {
@@ -171,7 +175,8 @@
 			var command = {
 				current : current,
 				action : action,
-				value : value
+				value : value,
+				sequence : sequence
 			};
 			var thisCommand = (SCmd.hasOwnProperty(action)&&typeof SCmd[action]=='function') ? action : 'default';
 			this.stopTrigger = false;
@@ -362,17 +367,17 @@
 		this.a = a;
 	};
 	S.Color.prototype = {
-		render: function(){
+		render : function(){
 			return ['rgba(',this.r,',',this.g,',',this.b,',',this.a,')'].join('')
 		}
 	};
 	S.Dot = function ( x, y, color ) {
 		this.p = new S.Point({
-			x: x,
-			y: y,
-			z: 5,
-			a: color.a,
-			h: 0
+			x : x,
+			y : y,
+			z : 5,
+			a : color.a,
+			h : 0
 		});
 		this.e = 0.07;
 		this.s = true;
@@ -383,20 +388,20 @@
 		this.q = [];
 	};
 	S.Dot.prototype = {
-		clone: function(){
+		clone : function(){
 			return new S.Point({
-				x: this.x,
-				y: this.y,
-				z: this.z,
-				a: this.a,
-				h: this.h
+				x : this.x,
+				y : this.y,
+				z : this.z,
+				a : this.a,
+				h : this.h
 			});
 		},
-		_draw: function ( drawing ){
+		_draw : function ( drawing ){
 			this.c.a = this.p.a;
 			S.Drawing.drawCircle.call(drawing, this.p, this.c);
 		},
-		_moveTowards: function ( n ) {
+		_moveTowards : function ( n ) {
 			var details = this.distanceTo(n, true);
 			var dx = details[0];
 			var dy = details[1];
@@ -419,7 +424,8 @@
 			}
 			return false;
 		},
-		_update: function(){
+		_update : function(){
+			var ret;
 			if (this._moveTowards(this.t)) {
 				var p = this.q.shift();
 				if (p) {
@@ -428,14 +434,15 @@
 					this.t.z = p.z || this.p.z;
 					this.t.a = p.a || this.p.a;
 					this.p.h = p.h || 0;
+					ret = !(p instanceof S.Point);
 				} else {
 					if (this.s) {
 						this.p.x -= Math.sin(Math.random() * 3.142);
 						this.p.y -= Math.sin(Math.random() * 3.142);
 					} else {
 						this.move(new S.Point({
-							x: this.p.x + (Math.random() * 50) - 25,
-							y: this.p.y + (Math.random() * 50) - 25
+							x : this.p.x + (Math.random() * 50) - 25,
+							y : this.p.y + (Math.random() * 50) - 25
 						}));
 					}
 				}
@@ -444,21 +451,24 @@
 			this.p.a = Math.max(0.1, this.p.a - (d * 0.05));
 			d = this.p.z - this.t.z;
 			this.p.z = Math.max(1, this.p.z - (d * 0.05));
+			return ret
 		},
-		distanceTo: function ( n, details ) {
+		distanceTo : function ( n, details ) {
 			var dx = this.p.x - n.x;
 			var dy = this.p.y - n.y;
 			var d = Math.sqrt(dx * dx + dy * dy);
 			return details ? [dx, dy, d] : d;
 		},
-		move: function ( p, avoidStatic ) {
+		move : function ( p, avoidStatic ) {
 			if (!avoidStatic || (avoidStatic && this.distanceTo(p) > 1)) {
 				this.q.push(p);
 			}
 		},
-		render: function ( engine ) {
-			this._update();
+		render : function ( engine ) {
+			var ret;
+			ret = this._update();
 			this._draw( engine.drawing );
+			return ret
 		}
 	}
 	S.ShapeBuilder = {
@@ -485,8 +495,8 @@
 			for (var p = 0; p < pixels.length; p += (4 * this.gap)) {
 				if (pixels[p + 3] > 0) {
 					dots.push(new S.Point({
-						x: x,
-						y: y
+						x : x,
+						y : y
 					}));
 					w = x > w ? x : w;
 					h = y > h ? y : h;
@@ -501,9 +511,9 @@
 				}
 			}
 			return {
-				dots: dots,
-				w: w + fx,
-				h: h + fy
+				dots : dots,
+				w : w + fx,
+				h : h + fy
 			}
 		},
 		setFontSize : function ( s ) {
@@ -537,16 +547,16 @@
 			for (var y = 0; y < height; y += this.gap) {
 				for (var x = 0; x < width; x += this.gap) {
 					dots.push(new S.Point({
-						x: x,
-						y: y,
+						x : x,
+						y : y,
 					})
 				)
 				}
 			}
 			return {
-				dots: dots,
-				w: width,
-				h: height
+				dots : dots,
+				w : width,
+				h : height
 			}
 		},
 		circle : function ( d ) {
@@ -594,13 +604,17 @@
 			this.cy = a.h / 2 - this.height / 2;
 		},
 		shuffleIdle : function(){
+			if (this.shuffling) {
+				return
+			}
 			var a = this.self.engine.drawing.getArea();
 			for (var d = 0; d < this.dots.length; d++) {
 				if (!this.dots[d].s) {
 					this.dots[d].move({
-						x: Math.random() * a.w,
-						y: Math.random() * a.h
+						x : Math.random() * a.w,
+						y : Math.random() * a.h
 					});
+					this.shuffling++;
 				}
 			}
 		},
@@ -628,23 +642,23 @@
 
 				if (this.dots[d].s) {
 					this.dots[d].move(new S.Point({
-						z: Math.random() * 20 + 10,
-						a: Math.random(),
-						h: 18
+						z : Math.random() * 20 + 10,
+						a : Math.random(),
+						h : 18
 					}));
 				} else {
 					this.dots[d].move(new S.Point({
-						z: Math.random() * 5 + 5,
-						h: fast ? 18 : 30
+						z : Math.random() * 5 + 5,
+						h : fast ? 18 : 30
 					}));
 				}
 				this.dots[d].s = true;
 				this.dots[d].move(new S.Point({
-					x: n.dots[i].x + this.cx,
-					y: n.dots[i].y + this.cy,
-					a: config.shapeOpactiy,
-					z: 5,
-					h: 0
+					x : n.dots[i].x + this.cx,
+					y : n.dots[i].y + this.cy,
+					a : config.shapeOpactiy,
+					z : 5,
+					h : 0
 				}));
 
 				n.dots = n.dots.slice(0, i).concat(n.dots.slice(i + 1));
@@ -653,25 +667,33 @@
 			for (var i = d; i < this.dots.length; i++) {
 				if (this.dots[i].s) {
 					this.dots[i].move(new S.Point({
-						z: Math.random() * 20 + 10,
-						a: Math.random(),
-						h: 20
+						z : Math.random() * 20 + 10,
+						a : Math.random(),
+						h : 20
 					}));
 					this.dots[i].s = false;
 					this.dots[i].e = 0.04;
 					this.dots[i].move(new S.Point({
-						x: Math.random() * a.w,
-						y: Math.random() * a.h,
-						a: config.pointColor.a,
-						z: Math.random() * 4,
-						h: 0
+						x : Math.random() * a.w,
+						y : Math.random() * a.h,
+						a : config.pointColor.a,
+						z : Math.random() * 4,
+						h : 0
 					}));
 				}
 			}
 		},
 		render : function(){
 			for (var d = 0; d < this.dots.length; d++) {
-				this.dots[d].render(this.self.engine);
+				if(this.dots[d].render(this.self.engine)) {
+					this.shuffling--;
+					if (this.shuffling < 0) {
+						this.shuffling = 0;
+					};
+					if (this.shuffling ==0 ) {
+						this.self.trigger('shuffle');
+					};
+				}
 			}
 		}
 	}
@@ -760,6 +782,7 @@
 		this.height = 0;
 		this.cx = 0;
 		this.cy = 0;
+		this.shuffling = 0;
 	}
 	SShape.prototype = S.Shape;
 	var e = {};
@@ -821,12 +844,14 @@
 				this.stoped = $.extend([], this.engine.sequence);
 				this.reset();
 			}
+			return this
 		},
 		start : function(){
 			if (this.stoped !== false) {
 				this.simulate(this.stoped);
 				this.stoped = false;
 			}
+			return this
 		},
 		destroy : function(){
 			this.engine.shapeBuilder.destroy();

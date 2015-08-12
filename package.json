@@ -1,6 +1,6 @@
 {
   "name": "led.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a canvas like a led pannel",
   "homepage": "https://github.com/lixinliang/led",
   "keywords": [
