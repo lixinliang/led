@@ -12,9 +12,20 @@
 	<canvas data-role="led-content"></canvas>
 	<script src="LED.min.js"></script>
 	<script>
-		(new LED({
-			action : 'Welcome|'
-		})).init();
+		var led = (new LED({
+			command : '@',
+			split : ';',
+			action : 'welcome;'
+		})).on('shuffle', function(){
+			this.shuffle();
+		}).on('action', function ( command ) {
+			if (command.sequence.length == 0) {
+				this.shuffle();
+			}
+		}).init();
+		window.addEventListener('resize', function(){
+			led.render(window.innerWidth, window.innerHeight);
+		});
 	</script>
 </body>
 </html>
