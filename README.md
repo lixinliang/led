@@ -51,8 +51,12 @@ This canvas plugin is base on [shape-shifter]. Appreciate for its help.
 | gap            | 圆点间距            | 13                               | Number         |
 | fontSize       | 文字大小            | 1000                             | Number         |
 | fontFamily     | 文字字体            | 'Avenir, Helvetica Neue, Helvetica, Arial, sans-serif'| String |
+| pointRadius    | 圆点大小            | 5                                | Number     |
 | pointColor     | 圆点颜色            | { r : 255, g : 102, b : 51, a : 0.3 }| Object     |
 | shapeOpactiy   | 组成形状时的圆点透明度| 0.9                              | Number         |
+| shiver         | 文字是否抖动        | true                              | Boolean         |
+| diffuse        | 散开的圆点是否随机悬浮 | true                            | Boolean         |
+
 
 ### <a name="api"></a>方法列表(API) [[⬆]](#top)
 | 方法(API) | 说明(desc)  | 参数(args) |
